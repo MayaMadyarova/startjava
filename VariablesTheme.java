@@ -85,10 +85,10 @@ public class VariablesTheme {
         System.out.println("    " + slash + backSlash);
         System.out.println("   " + slash + "  " + backSlash);
         System.out.println("  " + slash + underScore + leftParenthesis + " " + rightParenthesis
-            + backSlash);
+                + backSlash);
         System.out.println(" " + slash + '\n' + backSlash);
         System.out.println("" + slash + underScore + underScore + underScore + underScore + slash
-            + backSlash + underScore + underScore + backSlash); 
+                + backSlash + underScore + underScore + backSlash); 
 
         System.out.println("\n8. Output the number of hundreds, tens and ones to the screen");
         int num = 123;
@@ -96,8 +96,8 @@ public class VariablesTheme {
         int tens = num % 100 / 10;
         int ones = num % 10; 
         System.out.println("Number " + num + " contains:" + "\nhundreds - "  + hundreds
-            + "\ntens - " + tens + "\nones - " + ones + "\nSum of its digits = "
-            + (hundreds + tens + ones) + '\n' + "Product = " + (hundreds * tens * ones)); 
+                + "\ntens - " + tens + "\nones - " + ones + "\nSum of its digits = "
+                + (hundreds + tens + ones) + '\n' + "Product = " + (hundreds * tens * ones)); 
 
         System.out.println("\n9. Output of time");
         int time = 86_399;
