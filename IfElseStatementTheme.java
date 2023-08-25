@@ -45,20 +45,21 @@ public class IfElseStatementTheme {
         }
 
         System.out.println("\n3. Checking the number");
-        int c = 0;
+        int c = -10;
+        System.out.print("Number " + c + " is ");
         if(c == 0) {
-            System.out.println("Number " + c + " is null");
+            System.out.println("null");
         } else if (c < 0) {
             if(c % 2 != 0) {
-                System.out.println("Number " + c + " is negative and odd");
+                System.out.println("negative and odd");
             } else {
-                System.out.println("Number " + c + " is negative and even");
+                System.out.println("negative and even");
             }
         } else {
             if(c % 2 != 0) {
-                System.out.println("Number " + c + " is positive and odd");
+                System.out.println("positive and odd");
             } else {
-                System.out.println("Number " + c + " is positive and even");
+                System.out.println("positive and even");
             }
         }
         System.out.println("\n4. Search for identical digits in numbers");
