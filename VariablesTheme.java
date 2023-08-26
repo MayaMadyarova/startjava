@@ -25,7 +25,7 @@ public class VariablesTheme {
         int totalPrice = penPrice + bookPrice; 
         float discountAmount = totalPrice * discount;
         System.out.println("Total products' price without discount: " + totalPrice + "\nDiscount: "
-                 + discount*100 + "%" + "\nDiscount amount: " + discountAmount
+                 + discount * 100 + "%" + "\nDiscount amount: " + discountAmount
                  + "\nTotal products' price with discount: " + (totalPrice - discountAmount));
     
         System.out.println("\n3. Output to the screen the word JAVA");
@@ -84,9 +84,9 @@ public class VariablesTheme {
         char underScore = '_';
         System.out.println("    " + slash + backSlash);
         System.out.println("   " + slash + "  " + backSlash);
-        System.out.println("  " + slash + underScore + leftParenthesis + " " + rightParenthesis
-                + backSlash);
-        System.out.println(" " + slash + '\n' + backSlash);
+        System.out.println("  " + slash + underScore + leftParenthesis + " "
+                + rightParenthesis + backSlash);
+        System.out.println(" " + slash + "      " + backSlash);
         System.out.println("" + slash + underScore + underScore + underScore + underScore + slash
                 + backSlash + underScore + underScore + backSlash); 
 
