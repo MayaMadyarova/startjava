@@ -44,47 +44,44 @@ public class IfElseStatementTheme {
         }
 
         System.out.println("\n3. Checking the number");
-        int whatNumber = 7;
-        System.out.print("Number " + whatNumber);
-   
-        if(whatNumber == 0) {
-        } else if(whatNumber > 0) {
-            System.out.print(" positive");
-        } else {
-            System.out.print(" negative");
-        }
-        if(whatNumber != 0) {
-            if(whatNumber % 2 == 0) {
-                System.out.print(" even");
+        int srcNum = 7;
+        System.out.print("Number " + srcNum + " is");
+        if(srcNum == 0) {
+            System.out.println(srcNum);
+        } else if(srcNum != 0) {
+            if(srcNum > 0) {
+                System.out.print(" positive");
             } else {
-                System.out.print(" odd");
+                System.out.print(" negative");
+            }
+            if(srcNum / 2 != 0) {
+                System.out.print(", odd");
+            } else {
+                System.out.print(", even");
             }
         }
-
+        
         System.out.println("\n\n4. Search for identical digits in numbers");
-        int num1 = 123;
+        int num1 = 879;
         int num2 = 223;
         int hundreds1 = num1 / 100;
         int hundreds2 = num2 / 100;
-        int tens1 = num1 % 100 / 10;
-        int tens2 = num2 % 100 / 10;
+        int tens1 = num1 / 10 % 10;
+        int tens2 = num2 / 10 % 10;
         int ones1 = num1 % 10;
         int ones2 = num2 % 10;
         System.out.println("Initial numbers " + num1 + " and " + num2);
-        if(hundreds1 == hundreds2) {
-            System.out.print("Equal digit " + hundreds1);
-            System.out.println("\nNumbers of ranks = 1");
-        }
-        if(tens1 == tens2) {
-            System.out.print("Equal digit " + tens1);
-            System.out.println("\nNumber of rank = 2");
-        }
-        if(ones1 == ones2) {
-            System.out.print("Equal digit " + ones1);
-            System.out.println("\nNumber of rank = 3");
-        }
         if(hundreds1 != hundreds2 & tens1 != tens2 & ones1 != ones2) {
             System.out.println("No equal digits found");
+        } else if(ones1 == ones2) {
+            System.out.print("Equal digit " + ones1);
+            System.out.println("\nNumber of rank = 1");
+        } else if(tens1 == tens2) {
+            System.out.print("Equal digit " + tens1);
+            System.out.println("\nNumber of rank = 2");
+        } else if(hundreds1 == hundreds2) {
+            System.out.print("Equal digit " + hundreds1);
+            System.out.println("\nNumbers of ranks = 3");
         }
 
         System.out.println("\n5. Defining symbol by its code");
@@ -103,7 +100,7 @@ public class IfElseStatementTheme {
         int amount = 100_000;
         float interest = 0.05f;
         int interestAmount = (int) (amount * interest);
-        if( 100_000 <= amount & amount <= 300_000) {
+        if(amount >= 100_000 && amount <= 300_000) {
             interestAmount = (int) (amount * 0.07);
         } else if(amount > 300_000) {
             interestAmount = (int) (amount * 0.10);
@@ -113,8 +110,6 @@ public class IfElseStatementTheme {
     
         System.out.println("\n7. Defining assessment by subjects");
         int percentHistory = 59;
-        int percentProgramming = 92;
-
         int markHistory = 2;
         if(percentHistory > 91) {
             markHistory = 5;
@@ -124,6 +119,7 @@ public class IfElseStatementTheme {
             markHistory = 3;
         }
 
+        int percentProgramming = 92;
         int markProgramming = 2;
         if(percentProgramming > 91) {
             markProgramming = 5;
@@ -142,13 +138,12 @@ public class IfElseStatementTheme {
         int revenue = 14000;
         int rent = 5000;
         int productionCost = 9000;
-        int profit = revenue - rent - productionCost;
-        if(profit == 0) {
-            System.out.println("Profit for the year: " + profit * 12);
-        } else if(profit > 0) {
-            System.out.println("Profit for the year: " + "+" + profit * 12);
-        } else if(profit < 0) {
-            System.out.println("Profit for the year: " + profit * 12);
+        int profit = (revenue - rent - productionCost) * 12;
+        if(profit > 0) {
+            System.out.println("Profit for the year: " + "+" + profit);
+        } else if(profit <= 0) {
+            System.out.println("Profit for the year: " + profit);
         }
+        
     }
 }
