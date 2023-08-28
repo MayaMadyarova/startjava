@@ -29,7 +29,7 @@ public class IfElseStatementTheme {
         } else if(firstLetterName == 'I') {
             System.out.println("First letter is I");
         } else {
-            System.out.println("neither M no I is present");
+            System.out.println("Neither M no I is present");
         }
 
         System.out.println("\n2. Finding the maximum value");
@@ -48,7 +48,7 @@ public class IfElseStatementTheme {
         System.out.print("Number " + srcNum + " is");
         if(srcNum == 0) {
             System.out.println(srcNum);
-        } else if(srcNum != 0) {
+        } else {
             if(srcNum > 0) {
                 System.out.print(" positive");
             } else {
@@ -62,8 +62,8 @@ public class IfElseStatementTheme {
         }
         
         System.out.println("\n\n4. Search for identical digits in numbers");
-        int num1 = 879;
-        int num2 = 223;
+        int num1 = 127;
+        int num2 = 576;
         int hundreds1 = num1 / 100;
         int hundreds2 = num2 / 100;
         int tens1 = num1 / 10 % 10;
@@ -73,15 +73,19 @@ public class IfElseStatementTheme {
         System.out.println("Initial numbers " + num1 + " and " + num2);
         if(hundreds1 != hundreds2 & tens1 != tens2 & ones1 != ones2) {
             System.out.println("No equal digits found");
-        } else if(ones1 == ones2) {
-            System.out.print("Equal digit " + ones1);
-            System.out.println("\nNumber of rank = 1");
-        } else if(tens1 == tens2) {
-            System.out.print("Equal digit " + tens1);
-            System.out.println("\nNumber of rank = 2");
-        } else if(hundreds1 == hundreds2) {
-            System.out.print("Equal digit " + hundreds1);
-            System.out.println("\nNumbers of ranks = 3");
+        } else {
+            if(ones1 == ones2) {
+                System.out.print("Equal digit " + ones1);
+                System.out.println("\nNumber of rank = 1");
+            }
+            if(tens1 == tens2) {
+                System.out.print("Equal digit " + tens1);
+                System.out.println("\nNumber of rank = 2");
+            }
+            if(hundreds1 == hundreds2) {
+                System.out.print("Equal digit " + hundreds1);
+                System.out.println("\nNumber of rank = 3");
+            }
         }
 
         System.out.println("\n5. Defining symbol by its code");
@@ -136,14 +140,13 @@ public class IfElseStatementTheme {
 
         System.out.println("\n8. Calculation of annual profit");
         int revenue = 14000;
-        int rent = 5000;
+        int rent = 4000;
         int productionCost = 9000;
         int profit = (revenue - rent - productionCost) * 12;
         if(profit > 0) {
-            System.out.println("Profit for the year: " + "+" + profit);
-        } else if(profit <= 0) {
-            System.out.println("Profit for the year: " + profit);
+            System.out.println("Profit for the year: +" + profit + " rubles.");
+        } else {
+            System.out.println("Profit for the year: " + profit + " rubles.");
         }
-        
     }
 }
