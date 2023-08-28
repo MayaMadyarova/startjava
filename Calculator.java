@@ -2,38 +2,31 @@ public class Calculator {
 
     public static void main(String[] args) {
         int a = 4;
-        int b = 0;
-        char sign = '*';
-        int result;
+        int b = 3;
+        char sign = '^';
+        int result = 0;
         if(sign == '+') {
             result = a + b;
-            System.out.println(a + " " + sign + " " + b + " = " + result);
         } else if(sign == '-') {
             result = a - b;
-            System.out.println(a + " " + sign + " " + b + " = " + result);
         } else if(sign == '*') {
             result = a * b;
-            System.out.println(a + " " + sign + " " + b + " = " + result);
         } else if(sign == '/') {
-            if( b == 0) {
+            if(b == 0) {
                 System.out.println("You can't divide by zero");
-            } else {
-            result = a / b;
-            System.out.println(a + " " + sign + " " + b + " = " + result);
             }
+            result = a / b;
         } else if(sign == '%') {
             result = a % b;
-            System.out.println(a + " " + sign + " " + b + " = " + result);
         } else if(sign == '^') {
             if(b == 0) {
                 result = 1;
-            } else {
-                result = a;
-                for(int i = 1; i < b; i++) {
-                    result = result * a;
-                }
             }
-            System.out.println(a + " " + sign + " " + b + " = " + result);
+            result = 1;
+            for(int i = 0; i < b; i++) {
+                result *= a;
+            }
         }
+        System.out.println(a + " " + sign + " " + b + " = " + result);
     }
 }
