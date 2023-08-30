@@ -19,12 +19,11 @@ public class Calculator {
         } else if(sign == '%') {
             result = a % b;
         } else if(sign == '^') {
-            if(b == 0) {
-                result = 1;
-            }
             result = 1;
-            for(int i = 0; i < b; i++) {
-                result *= a;
+            if(b != 0) {
+                for(int i = 0; i < b; i++) {
+                    result *= a;
+                }
             }
         }
         System.out.println(a + " " + sign + " " + b + " = " + result);
