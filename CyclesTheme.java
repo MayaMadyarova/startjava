@@ -2,24 +2,24 @@ public class CyclesTheme {
 
     public static void main(String[] args) {
         System.out.println("1. Calculation the sum of even and odd numbers");
-        int numInLine = -10;
+        int counter = -10;
         int sumEven = 0;
         int sumOdd = 0;
         do {
-            if(numInLine % 2 == 0) {
-                sumEven += numInLine;
+            if(counter % 2 == 0) {
+                sumEven += counter;
             } else {
-                sumOdd += numInLine;
+                sumOdd += counter;
             }
-            numInLine++;
-        } while (numInLine <= 21);
+            counter++;
+        } while (counter <= 21);
         System.out.println("In the line [-10; 21] the sum of even numbers = " + sumEven
                 + ", and odd numbers = " + sumOdd);
 
         System.out.println("\n2. Output of numbers in the descending order.");
-        int max = 1;
-        int copyMax = max;
         int num = 5;
+        int num2 = 1;
+        int max = num2;
         int min = 19;
         if(num > max) {
             max = num;
@@ -30,8 +30,8 @@ public class CyclesTheme {
         if(num < min) {
             min = num;
         }
-        if(copyMax < min) {
-            min = copyMax;
+        if(max < min) {
+            min = num2;
         }
 
         System. out.println(min + ", " + max);
@@ -43,8 +43,9 @@ public class CyclesTheme {
         int someNum = 1234;
         int sum = 0;
         while(someNum > 0) {
-            System.out.print(someNum % 10);
-            sum += someNum % 10;
+            int digit = someNum % 10;
+            System.out.print(digit);
+            sum += digit;
             someNum /= 10;
         }
         System.out.println("\n" + sum);
@@ -67,20 +68,20 @@ public class CyclesTheme {
         }
 
         System.out.println("\n\n5. Checking number of twos on parity");
-        int num7 = 3_242_592;
-        int copyNum7 = num7;
+        int numWithTwos = 3_242_592;
+        int copynumWithTwos = numWithTwos;
         int countTwos = 0;
-        while(copyNum7 > 0) {
-            if(copyNum7 % 10 == 2) {
+        while(copynumWithTwos > 0) {
+            if(copynumWithTwos % 10 == 2) {
                 countTwos++;
             }
-            copyNum7 /= 10;
+            copynumWithTwos /= 10;
         }
 
         if(countTwos % 2 != 0) {
-            System.out.println("In " + num7 + " odd number of twos - " + countTwos);
+            System.out.println("In " + numWithTwos + " odd number of twos - " + countTwos);
         } else {
-            System.out.println("In " + num7 + " even number of twos - " + countTwos);
+            System.out.println("In " + numWithTwos + " even number of twos - " + countTwos);
         }
 
         System.out.println("\n6. Displaying geometric shapes");
@@ -105,47 +106,40 @@ public class CyclesTheme {
         }
         System.out.println();
 
-        int dollar = 0;
-        int dollar2 = 4;
+        lines = 0;
+        rows = 4;
         do {
             System.out.println("$");
             do {
                 System.out.print("$");
-                dollar++;
-            } while(dollar == 2);
-            dollar2--;
-        } while(dollar2 > 0);
+                lines++;
+            } while(lines == 2);
+            rows--;
+        } while(rows > 0);
         
         System.out.println("\n\n7. Displaying ASCII-symbols");
+            System.out.printf("%s%17s%30s\n", "Decimal", "HTML Name", "Charater");
         for(int i = 1; i <= 48; i += 2) {
-            System.out.printf("%3d      %c      %s\n", i, (char) i, Character.getName(i)); 
+            System.out.printf("%3d%17c%38s\n", i, i, Character.getName(i));
         }
         for(int i = 98; i <= 122; i += 2) {
-            System.out.printf("%3d      %c      %s\n", i, (char) i, Character.getName(i));
+            System.out.printf("%3d%17c%38s\n", i, i, Character.getName(i));
        }
 
-        System.out.println("\n8. Checking if the number is a polindrome");
-        int numP = 1234327;
-        int copyNumP = numP;
-        int countRank = 0;
-        while(copyNumP >= 10) {
-            copyNumP /= 10;
-            countRank++;
+        System.out.println("\n8. Checking if the number is a palindrome");
+        int palindromeOrNot = 5234325;
+        int copy = palindromeOrNot;
+        int reverseNum = 0;
+        while(copy > 0) {
+           int digit = copy % 10;
+           reverseNum *= 10;
+           reverseNum += digit;
+           copy /= 10;
         }
-        copyNumP = numP;
-        int sumReverse = 0;
-        for(int i = 0; i <= countRank; i++) {
-            int numNew = copyNumP % 10;
-            for(int j = countRank; j > i; j--) {
-                numNew *= 10;
-            }
-            sumReverse += numNew;
-            copyNumP /= 10;
-        }
-        if(sumReverse == numP) {
-            System.out.println("Number " + numP + " is a polindrome" );
+        if(reverseNum == palindromeOrNot) {
+            System.out.println("Number " + palindromeOrNot + " is a palindrome" );
         } else {
-            System.out.println("Number " + numP + " is not a polindrome" );
+            System.out.println("Number " + palindromeOrNot + " is not a palindrome" );
         }
 
         System.out.println("\n9. Checking if the number is happy");
