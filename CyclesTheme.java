@@ -118,12 +118,12 @@ public class CyclesTheme {
         } while(rows > 0);
         
         System.out.println("\n\n7. Displaying ASCII-symbols");
-            System.out.printf("%s%17s%30s\n", "Decimal", "HTML Name", "Charater");
+            System.out.printf("%s%17s%29s\n", "Decimal", "HTML Name", "Charater");
         for(int i = 1; i <= 48; i += 2) {
-            System.out.printf("%3d%17c%38s\n", i, i, Character.getName(i));
+            System.out.printf("%3d%17c%37s\n", i, i, Character.getName(i));
         }
         for(int i = 98; i <= 122; i += 2) {
-            System.out.printf("%3d%17c%38s\n", i, i, Character.getName(i));
+            System.out.printf("%3d%17c%37s\n", i, i, Character.getName(i));
        }
 
         System.out.println("\n8. Checking if the number is a palindrome");
