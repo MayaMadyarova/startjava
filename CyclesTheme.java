@@ -68,20 +68,20 @@ public class CyclesTheme {
         }
 
         System.out.println("\n\n5. Checking number of twos on parity");
-        int numWithTwos = 3_242_592;
-        int copynumWithTwos = numWithTwos;
+        int inputNum = 3_242_592;
+        int copyInputNum = inputNum;
         int countTwos = 0;
-        while(copynumWithTwos > 0) {
-            if(copynumWithTwos % 10 == 2) {
+        while(copyInputNum > 0) {
+            if(copyInputNum % 10 == 2) {
                 countTwos++;
             }
-            copynumWithTwos /= 10;
+            copyInputNum /= 10;
         }
 
         if(countTwos % 2 != 0) {
-            System.out.println("In " + numWithTwos + " odd number of twos - " + countTwos);
+            System.out.println("In " + inputNum + " odd number of twos - " + countTwos);
         } else {
-            System.out.println("In " + numWithTwos + " even number of twos - " + countTwos);
+            System.out.println("In " + inputNum + " even number of twos - " + countTwos);
         }
 
         System.out.println("\n6. Displaying geometric shapes");
@@ -118,64 +118,51 @@ public class CyclesTheme {
         } while(rows > 0);
         
         System.out.println("\n\n7. Displaying ASCII-symbols");
-            System.out.printf("%s%17s%29s\n", "Decimal", "HTML Name", "Charater");
-        for(int i = 1; i <= 48; i += 2) {
-            System.out.printf("%3d%17c%37s\n", i, i, Character.getName(i));
+            System.out.printf("%s%14s%26s\n", "Decimal", "HTML Name", "Character");
+        for(int i = 15; i <= 48; i += 2) {
+            System.out.printf("%3d%14c%30s\n", i, i, Character.getName(i));
         }
         for(int i = 98; i <= 122; i += 2) {
-            System.out.printf("%3d%17c%37s\n", i, i, Character.getName(i));
+            System.out.printf("%3d%14c%30s\n", i, i, Character.getName(i));
        }
 
         System.out.println("\n8. Checking if the number is a palindrome");
-        int palindromeOrNot = 5234325;
-        int copy = palindromeOrNot;
+        int srcNum = 5234325;
+        int copy = srcNum;
         int reverseNum = 0;
         while(copy > 0) {
-           int digit = copy % 10;
-           reverseNum *= 10;
-           reverseNum += digit;
-           copy /= 10;
+            reverseNum = reverseNum * 10 + copy % 10;
+            copy /= 10;
         }
-        if(reverseNum == palindromeOrNot) {
-            System.out.println("Number " + palindromeOrNot + " is a palindrome" );
+        if(reverseNum == srcNum) {
+            System.out.println("Number " + srcNum + " is a palindrome" );
         } else {
-            System.out.println("Number " + palindromeOrNot + " is not a palindrome" );
+            System.out.println("Number " + srcNum + " is not a palindrome" );
         }
 
         System.out.println("\n9. Checking if the number is happy");
-        int numHappy = 456654;
+        int workNum = 456654;
         int sumFirstThree = 0; 
         int sumSecondThree = 0;
-        int copyNumHappy = numHappy;
-        for(int i = 0; i < 3; i++) {
-            int firstThreeDigits = numHappy % 10;
-            sumFirstThree += firstThreeDigits;
-            numHappy /= 10; 
-        } 
-        for(int i = 0; i < 3; i++) {
-        int secondThreeDigits = numHappy % 10;
-        sumSecondThree += secondThreeDigits;
-        numHappy /= 10;
+        int copyWorkNum = workNum;
+        for(int i = 3; i > 0; i--) {
+            sumFirstThree += workNum % 10;
+            workNum /= 10;
+            sumSecondThree += workNum / 100 % 10;
         }
         if(sumFirstThree == sumSecondThree) {
-            System.out.println("Number " + copyNumHappy + " is a happy\nSum of ABC = " + sumFirstThree
+            System.out.println("Number " + copyWorkNum + " is a happy\nSum of ABC = " + sumFirstThree
                     + " and sum of DEF = " + sumSecondThree);
         }
         System.out.println("\n10. Displaying the Pythagorean multiplication table");
-        char underScore = 95;
-        char verticalBar = 124; 
         for(int i = 1; i < 10; i++) {
             for(int j = 1; j < 10; j++) {
                 if(i == 1 && j == 1) {
-                    System.out.print(underScore);
-                    System.out.print(verticalBar);
+                    System.out.printf("%c%c", '_', '|');
                 } else if(j == 1) {
-                    System.out.printf("%d", i * j);
-                    System.out.print(verticalBar);
+                    System.out.printf("%d%c", i * j, '|');
                 } else if(i == 1) {
-                    System.out.print(underScore);
-                    System.out.print(underScore);
-                    System.out.printf("%2d", i * j);
+                    System.out.printf("%c%c%2d", '_', '_', i * j);
                 } else {
                     System.out.printf("%4d", i * j);
                 }
