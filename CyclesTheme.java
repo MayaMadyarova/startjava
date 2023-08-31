@@ -118,7 +118,7 @@ public class CyclesTheme {
         } while(rows > 0);
         
         System.out.println("\n\n7. Displaying ASCII-symbols");
-            System.out.printf("%s%14s%26s\n", "Decimal", "HTML Name", "Character");
+            System.out.printf("%s%14s%26s\n", "Decimal", "Character", "Description");
         for(int i = 15; i <= 48; i += 2) {
             System.out.printf("%3d%14c%30s\n", i, i, Character.getName(i));
         }
@@ -154,6 +154,7 @@ public class CyclesTheme {
             System.out.println("Number " + copyWorkNum + " is a happy\nSum of ABC = " + sumFirstThree
                     + " and sum of DEF = " + sumSecondThree);
         }
+        
         System.out.println("\n10. Displaying the Pythagorean multiplication table");
         for(int i = 1; i < 10; i++) {
             for(int j = 1; j < 10; j++) {
