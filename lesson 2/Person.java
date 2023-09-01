@@ -3,7 +3,7 @@ public class Person {
     String sex = "male";
     String name = "Tim";
     float height  = 1.82f;
-    float weight = 70.5f;
+    float weight = 71.5f;
     int age = 38;
 
     public void go() {
