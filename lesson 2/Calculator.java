@@ -35,7 +35,7 @@ public class Calculator {
                 System.out.println("You input the wrong sign");
                 return;
             }
-        System.out.println("Answer is " + result);
+        System.out.println("The answer is " + result);
     }
 }
 
