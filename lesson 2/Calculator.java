@@ -3,31 +3,19 @@ public class Calculator {
     private int b;
     private char sign;
 
-    int getA() {
-        return a;
-    }
-
     public void setA(int a) {
         this.a = a;
-    }
-
-    int getB() {
-        return b;
     }
 
     public void setB(int b) {
         this.b = b;
     }
 
-    char getSign() {
-        return sign;
-    }
-
     public void setSign(char sign) {
         this.sign = sign;
     }
 
-    void calculate(int a, int b, char sign) {
+    void calculate() {
         int result = 0;
         switch(sign) {
             case '+' :

@@ -6,6 +6,18 @@ public class Jaeger {
     private String origin;
     private String status;
 
+    public Jaeger() {}
+
+    public Jaeger(String name, float weight, float height, int numberPilots, String origin,
+            String status) {
+        this.name = name;
+        this.weight = weight;
+        this.height = height;
+        this.numberPilots = numberPilots;
+        this.origin = origin;
+        this.status = status;
+    }
+
     public String getName() {
         return name;
     }
@@ -27,7 +39,7 @@ public class Jaeger {
     }
 
     public void setHeight(float height) {
-        this.height =height;
+        this.height = height;
     }
 
     public int getNumberPilots() {
@@ -54,19 +66,6 @@ public class Jaeger {
         this.status = status;
     }
 
-    public Jaeger() {
-
-    }
-
-    public Jaeger(String name, float weight, float height, int numberPilots, String origin, String status) {
-        this.name = name;
-        this.weight = weight;
-        this.height = height;
-        this.numberPilots = numberPilots;
-        this.origin = origin;
-        this.status = status;
-    }
-
     public boolean drift() {
         System.out.println("You have entered the drift");
         return true;
@@ -79,7 +78,4 @@ public class Jaeger {
     public void scanKaiju() {
         System.out.println("scanning");
     }
-
-
-
 }
