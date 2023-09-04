@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class GuessNumber {
     Player playerOne;
     Player playerTwo;
@@ -7,7 +9,23 @@ public class GuessNumber {
         this.playerTwo = playerTwo;
     }
 
-    int secretNumber;
+    Scanner s = new Scanner(System.in);
+    int secretNumber = (int)(1 + Math.random() * 100);
+
+    public void game(Player playerOne, Player playerTwo) {
+            do {
+                System.out.println("The first player " + playerOne.getName() + " input your number");
+                playerOne.setNumber(s.nextInt());
+                int number1 = playerOne.getNumber();
+                guessNumber(number1, secretNumber);
+                if(number1 != secretNumber) {
+                    System.out.println("The second player " + playerTwo.getName() + " input your number");
+                    playerTwo.setNumber(s.nextInt());
+                    int number2 = playerTwo.getNumber();
+                guessNumber(number2, secretNumber);
+                }
+            } while (playerOne.getNumber() != secretNumber && playerTwo.getNumber() != secretNumber);
+    }
 
     public void guessNumber(int number, int secretNumber) {
         if(number > secretNumber) {
