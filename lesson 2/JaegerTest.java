@@ -21,6 +21,7 @@ public class JaegerTest {
         jaeger1.drift();
 
         Jaeger jaeger2 = new Jaeger("Coyote_Tango", 2.312f, 85.34f, 2, "Japan", "Destroyed");
+        
         System.out.println("\nThe name of jaeger2 is " + jaeger2.getName());
         System.out.println("Weight is " + jaeger2.getWeight());
         System.out.println("Height is " + jaeger2.getHeight());

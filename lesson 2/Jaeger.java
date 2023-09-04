@@ -8,8 +8,8 @@ public class Jaeger {
 
     public Jaeger() {}
 
-    public Jaeger(String name, float weight, float height, int numberPilots, String origin,
-            String status) {
+    public Jaeger(String name, float weight, float height,
+            int numberPilots, String origin, String status) {
         this.name = name;
         this.weight = weight;
         this.height = height;
