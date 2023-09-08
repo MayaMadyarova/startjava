@@ -8,22 +8,21 @@ public class GuessNumber {
     public GuessNumber(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
-    }   
+    }
 
     public void play() {
         int secretNumber = (int) (1 + Math.random() * 100);
         while(true) {
-            if(!guess(secretNumber, player1)) {
-                if(guess(secretNumber, player2)) {
-                    break;
-                }
-            } else {
+            if(isGuessed(secretNumber, player1)) {
+                break;
+            }
+            if(isGuessed(secretNumber, player2)) {
                 break;
             }
         }
     }
 
-     private boolean guess(int secretNumber, Player player) {
+    private boolean isGuessed(int secretNumber, Player player) {
         System.out.println("Player " + player.getName() + " input your number");
         player.setNumber(console.nextInt());
         int number = player.getNumber();
