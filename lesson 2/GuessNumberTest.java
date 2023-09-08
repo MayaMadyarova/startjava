@@ -3,16 +3,16 @@ import java.util.Scanner;
 public class GuessNumberTest {
 
     public static void main(String[] args) {
-        String answer;
         Scanner console = new Scanner(System.in);
         System.out.println("Input the name of the first player");
         Player player1 = new Player(console.nextLine());
         System.out.println("Input the name of the second player");
         Player player2 = new Player(console.nextLine());
-        GuessNumber guessNumber = new GuessNumber(player1, player2);
+        GuessNumber game = new GuessNumber(player1, player2);
+        String answer;
 
         do {
-            guessNumber.playGame();
+            game.play();
             do {
                 System.out.println("Do You want to continue?[yes/no]");
                 answer = console.nextLine();
