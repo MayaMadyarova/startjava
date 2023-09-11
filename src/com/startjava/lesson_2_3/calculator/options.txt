@@ -1,0 +1,3 @@
+-d C:\Users\Мариям\OneDrive\Рабочий стол\StartJava\out
+CalculatorTest.java
+Calculator.java
