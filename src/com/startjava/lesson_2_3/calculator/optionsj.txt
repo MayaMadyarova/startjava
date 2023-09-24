@@ -1,2 +1,0 @@
-- cp C:\Users\Мариям\OneDrive\Рабочий стол\StartJava\out
-com.startjava.lesson_2_3.calculator.CalculatorTest
