@@ -1,50 +1,39 @@
 package com.startjava.lesson_2_3_4.calculator;
 
-import static java.lang.Integer.parseInt;
-
-public class Calculator<a> {
+public class Calculator {
     private int a;
     private int b;
     private char sign;
 
-    Calculator(String string) {
-        String[] array = string.split(" ");
-        a = Integer.parseInt(array[0]);
-        sign = (array[1]).charAt(0);
-        b = Integer.parseInt(array[2]);
+    Calculator(String mathExpression) {
+        String[] mathExpressionArray = mathExpression.split(" ");
+        a = Integer.parseInt(mathExpressionArray[0]);
+        sign = mathExpressionArray[1].charAt(0);
+        b = Integer.parseInt(mathExpressionArray[2]);
     }
 
-
     double calculate() {
-        double result = 0;
         switch(sign) {
             case '+' :
-                result = (double) a + b;
-                break;
+                return (double) a + b;
             case '-' :
-                result = (double) a - b;
-                break;
+                return (double) a - b;
             case '*' :
-                result = (double) a * b;
-                break;
+                return (double) a * b;
             case '/' :
                 if(b == 0) {
                     System.out.println("You can't devide by zero!");
                     return Double.MIN_VALUE;
                 } else {
-                    result = (double) a / b;
+                    return (double) a / b;
                 }
-                break;
             case '%' :
-                result = (double) a % b;
-                break;
+                return (double) a % b;
             case '^' :
-                result = Math.pow((double) a, b);
-                break;
+                return Math.pow((double) a, b);
             default:
                 System.out.println("Error: sign " + sign + " is not supported.");
                 return Double.MIN_VALUE;
         }
-        return result;
     }
 }
