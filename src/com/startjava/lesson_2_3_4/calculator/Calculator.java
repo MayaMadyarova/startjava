@@ -1,54 +1,50 @@
 package com.startjava.lesson_2_3_4.calculator;
 
-public class Calculator {
+import static java.lang.Integer.parseInt;
+
+public class Calculator<a> {
     private int a;
     private int b;
     private char sign;
 
-    public void setA(int a) {
-        this.a = a;
+    Calculator(String string) {
+        String[] array = string.split(" ");
+        a = Integer.parseInt(array[0]);
+        sign = (array[1]).charAt(0);
+        b = Integer.parseInt(array[2]);
     }
 
-    public void setB(int b) {
-        this.b = b;
-    }
 
-    public void setSign(char sign) {
-        this.sign = sign;
-    }
-
-    void calculate() {
-        int result = 0;
+    double calculate() {
+        double result = 0;
         switch(sign) {
             case '+' :
-                result = a + b;
+                result = (double) a + b;
                 break;
             case '-' :
-                result = a - b;
+                result = (double) a - b;
                 break;
             case '*' :
-                result = a * b;
+                result = (double) a * b;
                 break;
             case '/' :
                 if(b == 0) {
-                    System.out.println("You can't divide by zero");
-                    return;
+                    System.out.println("You can't devide by zero!");
+                    return Double.MIN_VALUE;
+                } else {
+                    result = (double) a / b;
                 }
-                result = a / b;
                 break;
             case '%' :
-                result = a % b;
+                result = (double) a % b;
                 break;
             case '^' :
-                result = 1;
-                for(int i = 0; i < b; i++) {
-                    result *= a;
-                }
+                result = Math.pow((double) a, b);
                 break;
             default:
-                System.out.println("You input the wrong sign");
-                return;
+                System.out.println("Error: sign " + sign + " is not supported.");
+                return Double.MIN_VALUE;
         }
-        System.out.println("The answer is " + result);
+        return result;
     }
 }

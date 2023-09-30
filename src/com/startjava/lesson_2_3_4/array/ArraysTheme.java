@@ -1,5 +1,7 @@
 package com.startjava.lesson_2_3_4.array;
 
+import java.util.Arrays;
+
 public class ArraysTheme {
     public static void main(String[] args) {
         //1.Реверс значений массива.
@@ -21,9 +23,8 @@ public class ArraysTheme {
         System.out.print("Before reverse: [");
         print(length, numbers);
         for (int i = 0; i < length / 2; i++) {
-            length--;
             int temp = numbers[i];
-            numbers[i] = numbers[length];
+            numbers[i] = numbers[--length];
             numbers[length] = temp;
         }
         System.out.print("After reverse: [");
@@ -32,7 +33,7 @@ public class ArraysTheme {
 
     private static void print(int length, int[] array) {
         for (int i = 0; i < length; i++) {
-            System.out.print((i == length - 1)?(array[i] + "]\n"): (array[i] + ", "));
+            System.out.print(array[i] + (i != length - 1 ? ", " :  "]\n"));
         }
     }
 
@@ -58,14 +59,17 @@ public class ArraysTheme {
             randomNumbers[i] = (float) Math.random();
         }
         print(length, randomNumbers);
-        float medianNumber = randomNumbers[length / 2];
-        System.out.println("\n" + medianNumber);
+        float middleCellNumber = randomNumbers[length / 2];
+        System.out.println("\n" + middleCellNumber);
+        int count = 0;
         for (int i = 0; i < length; i++) {
-            if (randomNumbers[i] > medianNumber) {
-                randomNumbers[i] = (float) 0;
+            if (randomNumbers[i] > middleCellNumber) {
+                randomNumbers[i] = 0;
+                count++;
             }
         }
         print(length, randomNumbers);
+        System.out.println("\nNumber of zeroed cells = " + count);
     }
 
     private static void print(int length, float[] array) {
@@ -94,25 +98,25 @@ public class ArraysTheme {
 
     private static void fillArrayWithUniqueNumbers() {
         System.out.println("\n5.Filling array with unique numbers");
-        int[] randomIntNumbers = new int[30];
-        randomIntNumbers[0] = (int) (60 + Math.random() * 40);
-        for (int i = 1; i < 30; i++) {
-            randomIntNumbers[i] = (int) (60 + Math.random() * 40);
+        int[] uniqueNumbers = new int[30];
+        int length = uniqueNumbers.length;
+        uniqueNumbers[0] = (int) (60 + Math.random() * 40);
+
+        for (int i = 1; i < length; i++) {
             int count = 0;
             do {
                 count = 0;
+                uniqueNumbers[i] = (int) (60 + Math.random() * 40);
                 for (int j = 0; j < i; j++) {
-                    if (randomIntNumbers[i] != randomIntNumbers[j]) {
+                    if (uniqueNumbers[i] != uniqueNumbers[j]) {
                         count++;
                     }
                 }
-                if (count != i) {
-                    randomIntNumbers[i] = (int) (60 + Math.random() * 40);
-                }
             } while (count != i);
         }
+        Arrays.sort(uniqueNumbers);
         for (int i = 1; i <= 30; i++) {
-            System.out.print(randomIntNumbers[i - 1] + " ");
+            System.out.print(uniqueNumbers[i - 1] + " ");
             if (i % 10 == 0) {
                 System.out.println();
             }

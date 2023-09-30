@@ -1,27 +1,25 @@
 package com.startjava.lesson_2_3_4.calculator;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class CalculatorTest {
     public static void main(String[]args) {
-        Calculator calculator = new Calculator();
         Scanner scanner = new Scanner(System.in);
-        String answer;
+        String answer = null;
 
         do {
-            System.out.println("Input the first number: ");
-            calculator.setA(scanner.nextInt());
-            scanner.nextLine();
-            System.out.println("Input the sign of the mathematical operation: ");
-            calculator.setSign(scanner.nextLine().charAt(0));
-            System.out.println("Input the second number: ");
-            calculator.setB(scanner.nextInt());
-            scanner.nextLine();
-            calculator.calculate();
+            System.out.println("Input the mathematical expression in such format: 2 ^ 10");
+            String string = scanner.nextLine();
+            Calculator calculator = new Calculator(string);
+            double result = calculator.calculate();
+            if(result != Double.MIN_VALUE) {
+                System.out.println(string + " = " + new DecimalFormat("#.###").format(result));
+            }
             do {
                 System.out.println("Do you want to continue calculation? [yes/no]: ");
                 answer = scanner.nextLine();
-            } while (!answer.equals("no") && !answer.equals("yes"));
+            } while(!answer.equals("no") && !answer.equals("yes"));
         } while (answer.equals("yes"));
     }
 }
