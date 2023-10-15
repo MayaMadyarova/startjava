@@ -7,10 +7,10 @@ public class Calculator {
     private static double result;
 
     Calculator(String mathExpression) {
-        String[] mathExpressionArray = mathExpression.split(" ");
-        a = Integer.parseInt(mathExpressionArray[0]);
-        sign = mathExpressionArray[1].charAt(0);
-        b = Integer.parseInt(mathExpressionArray[2]);
+        String[] elements = mathExpression.split(" ");
+        a = Integer.parseInt(elements[0]);
+        sign = elements[1].charAt(0);
+        b = Integer.parseInt(elements[2]);
     }
 
 
@@ -36,13 +36,13 @@ public class Calculator {
         result =
         switch(sign) {
             case '+' : {
-                yield (double) a + b;
+                yield a + b;
             }
         case '-' : {
-                yield (double) a - b;
+                yield a - b;
             }
             case '*' : {
-                yield (double) a * b;
+                yield a * b;
             }
             case '/' : {
                 if(b == 0) {
@@ -53,7 +53,7 @@ public class Calculator {
                 }
             }
             case '%' : {
-                yield (double) a % b;
+                yield a % b;
             }
             case '^' : {
                 yield Math.pow((double) a, b);
