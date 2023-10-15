@@ -1,9 +1,10 @@
 package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
-    private int a;
-    private int b;
-    private char sign;
+    private static int a;
+    private static int b;
+    private static char sign;
+    private static double result;
 
     Calculator(String mathExpression) {
         String[] mathExpressionArray = mathExpression.split(" ");
@@ -12,28 +13,56 @@ public class Calculator {
         b = Integer.parseInt(mathExpressionArray[2]);
     }
 
-    double calculate() {
+
+    static void check() {
+        try {
+            boolean check1 = (a > 0 && b > 0);
+        }
+        catch (Exception e) {
+            RuntimeException exception;
+            System.out.println("Numbers must be positive");
+        }
+        try {
+            boolean check2 = (a % 1 == 0 && b % 1 == 0);
+        }
+        catch (Exception e) {
+            RuntimeException exception;
+            System.out.println("Numbers must be integers");
+        }
+
+    }
+
+    static double calculate() {
+        result =
         switch(sign) {
-            case '+' :
-                return (double) a + b;
-            case '-' :
-                return (double) a - b;
-            case '*' :
-                return (double) a * b;
-            case '/' :
+            case '+' : {
+                yield (double) a + b;
+            }
+        case '-' : {
+                yield (double) a - b;
+            }
+            case '*' : {
+                yield (double) a * b;
+            }
+            case '/' : {
                 if(b == 0) {
                     System.out.println("You can't devide by zero!");
-                    return Double.MIN_VALUE;
+                    yield Double.MIN_VALUE;
                 } else {
-                    return (double) a / b;
+                    yield (double) a / b;
                 }
-            case '%' :
-                return (double) a % b;
-            case '^' :
-                return Math.pow((double) a, b);
-            default:
+            }
+            case '%' : {
+                yield (double) a % b;
+            }
+            case '^' : {
+                yield Math.pow((double) a, b);
+            }
+            default : {
                 System.out.println("Error: sign " + sign + " is not supported.");
-                return Double.MIN_VALUE;
-        }
+                yield Double.MIN_VALUE;
+            }
+        };
+        return result;
     }
 }

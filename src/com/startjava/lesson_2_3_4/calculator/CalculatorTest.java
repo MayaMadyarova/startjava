@@ -11,8 +11,7 @@ public class CalculatorTest {
         do {
             System.out.println("Input the mathematical expression in the format: 2 ^ 10");
             String mathExpression = scanner.nextLine();
-            Calculator calculator = new Calculator(mathExpression);
-            double result = calculator.calculate();
+            double result = Calculator.calculate();
             outputResult(result, mathExpression);
             do {
                 System.out.println("Do you want to continue calculation? [yes/no]: ");
@@ -26,5 +25,4 @@ public class CalculatorTest {
                 + new DecimalFormat("#.###").format(result) : "");
     }
 }
-
 
