@@ -6,47 +6,37 @@ import java.util.Scanner;
 public class CalculatorTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String answer = "";
-        double result =0;
+        String answer = "yes";
 
         do {
-            System.out.println("Input the mathematical expression in the format: 2 ^ 10");
-            String mathExpression = scanner.nextLine();
-            try {
-                new Calculator(mathExpression);
-                if(Calculator.a < 0 || Calculator.b < 0) {
+            if ("yes".equals(answer)) {
+                System.out.println("Input the mathematical expression in the format: 2 ^ 10");
+                String mathExpression = scanner.nextLine();
+                String[] elements = mathExpression.split(" ");
+                if (elements.length != 3) {
                     try {
-                        throw new RuntimeException();
+                        throw new IndexOutOfBoundsException();
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("The length of your mathemathical expression is not correct!");
                     }
-                    catch (RuntimeException e) {
-                        System.out.println("Numbers must be positive!");
+                } else {
+                    try {
+                        double result = Calculator.calculate(elements);
+                        outputResult(result, mathExpression);
+                    } catch (ArithmeticException e) {
+                        System.out.println("You can't devide by zero!");
+                    } catch ( IllegalStateException e) {
+                        System.out.println("Sign is not supported!");
                     }
                 }
-                result = Calculator.calculate();
-                outputResult(result, mathExpression);
             }
-            catch (NumberFormatException e) {
-                System.out.println("Numbers must be integers!");
-            }
-            catch (ArithmeticException e) {
-                System.out.println("You can't devide by zero!");
-            }
-            catch (IllegalStateException e) {
-                System.out.println("Sign is not supported!");
-            }
-
-
             System.out.println("Do you want to continue calculation? [yes/no]: ");
             answer = scanner.nextLine();
-            if (!answer.equals("no") && !answer.equals("yes")) {
-                System.out.println("Do you want to continue calculation? [yes/no]: ");
-                answer = scanner.nextLine();
-            }
-        } while (answer.equals("yes"));
+        } while (!"no".equals(answer));
     }
 
     private static void outputResult(double result, String mathExpression) {
-        System.out.println(result > 0 ? mathExpression + " = "
+        System.out.println(result != Double.MIN_VALUE ? mathExpression + " = "
                 + new DecimalFormat("#.###").format(result) : "");
     }
 }
