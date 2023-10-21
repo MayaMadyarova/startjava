@@ -1,36 +1,30 @@
 package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
-    public static int a;
-    public static int b;
-    public static char sign;
-    public static double result;
-    public static String[] elements;
 
-
-
-    static double calculate(String[] elements) {
-        try {
-            a = Integer.parseInt(elements[0]);
-            sign = elements[1].charAt(0);
-            b = Integer.parseInt(elements[2]);
-            if (a < 0 || b < 0) {
-                System.out.println("Numbers must be positive!");
-            } else {
-                return switch (sign) {
-                    case '+' -> a + b;
-                    case '-' -> a - b;
-                    case '*' -> a * b;
-                    case '/' -> a / b;
-                    case '%' -> a % b;
-                    case '^' -> Math.pow((double) a, Calculator.b);
-                    default -> throw new IllegalStateException("");
-                };
-            }
-        }catch (NumberFormatException e) {
-            System.out.println("Numbers must be integers!");
+    static double calculate(String mathExpression) throws RuntimeException {
+        String[] elements = mathExpression.split(" ");
+        if(elements.length != 3) {
+            throw new IllegalArgumentException();
         }
-        return Double.MIN_VALUE;
+        int a = Integer.parseInt(elements[0]);
+        char sign = elements[1].charAt(0);
+        int b = Integer.parseInt(elements[2]);
+        if(a % 1 != 0 || b % 1 != 0) {
+            throw new NumberFormatException();
+        }
+        if(a < 0 || b < 0) {
+            throw new RuntimeException();
+        }
+        return switch (sign) {
+            case '+' -> a + b;
+            case '-' -> a - b;
+            case '*' -> a * b;
+            case '/' -> a / b;
+            case '%' -> a % b;
+            case '^' -> Math.pow((double) a, b);
+            default -> throw new IllegalStateException("");
+        };
     }
 }
 
