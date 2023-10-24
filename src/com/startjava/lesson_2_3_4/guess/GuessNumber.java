@@ -27,16 +27,17 @@ public class GuessNumber {
                 break;
             }
         }
-        printAndDelete(player1, player1.numbers);
-        printAndDelete(player2, player2.numbers);
+        printAndDelete(player1, player1.getNumbers());
+        printAndDelete(player2, player2.getNumbers());
     }
 
 
     private boolean isGuessed(int secretNumber, Player player, int attempt) {
         if(attempt < 11){
             System.out.println("Player " + player.getName() + " input your number");
-            number = player.setNumber(console.nextInt());
-            player.numbers[attempt - 1] = number;
+            number = player.addNumber(console.nextInt());
+            int[] numbers = player.getNumbers();
+            numbers[attempt - 1] = number;
             if (number == secretNumber) {
                 System.out.println("Player " + player.getName() + " has guessed number " + number + " from " +
                         attempt + " attempt!");
@@ -52,7 +53,7 @@ public class GuessNumber {
         return false;
     }
 
-    public void printAndDelete (Player player,int[] numbers){
+        public void printAndDelete (Player player,int[] numbers){
         System.out.println("\nAll numbers, named by player " + player.getName());
         int[] numbersCopy = Arrays.copyOf(numbers, numbers.length);
         for (int i = 0; i < numbersCopy.length; i++) {

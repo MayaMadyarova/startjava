@@ -1,10 +1,10 @@
 package com.startjava.lesson_2_3_4.guess;
 
-public class Player<arr> {
+public class Player {
 
     private String name;
     private int number;
-    int[] numbers = new int[10];
+    private int[] numbers = new int[10];
 
     public Player(String name) {
         this.name = name;
@@ -14,12 +14,11 @@ public class Player<arr> {
         return name;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public int setNumber(int number) {
+    public int addNumber(int number) {
         this.number = number;
         return number;
+    }
+    public int[] getNumbers() {
+        return numbers;
     }
 }

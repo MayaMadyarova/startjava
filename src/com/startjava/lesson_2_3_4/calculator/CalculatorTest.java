@@ -20,8 +20,8 @@ public class CalculatorTest {
                     System.out.println(e.getMessage());
                 }
             }
-        System.out.println("Do you want to continue calculation? [yes/no]: ");
-        answer = scanner.nextLine();
+            System.out.println("Do you want to continue calculation? [yes/no]: ");
+            answer = scanner.nextLine();
         } while (!"no".equals(answer));
     }
 }
