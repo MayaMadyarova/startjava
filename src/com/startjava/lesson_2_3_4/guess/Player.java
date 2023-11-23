@@ -21,12 +21,12 @@ public class Player {
     }
 
     public int[] getNumbers() {
-        return numbers;
+        int[] copyNumbers = Arrays.copyOfRange(numbers, 0, attempt);
+        return copyNumbers;
     }
 
-    public int[] addNumbers(int number) {
+    public void addNumber(int number) {
         numbers[attempt++] = number;
-        return numbers;
     }
 
     public void clear() {

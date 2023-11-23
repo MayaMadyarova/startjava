@@ -17,24 +17,36 @@ public class GuessNumber {
     public void play() {
         System.out.println("The game begins! Each player has 10 attempts.");
         int secretNumber = (int) (1 + Math.random() * 100);
-        while(player1.getAttempt() < 10 || player2.getAttempt() < 10) {
-            if (isGuessed(secretNumber, player1, insertNumber(player1))) {
+        while(checkAttempt(player1) || checkAttempt(player2)) {
+            int numberPlayer1 = inputNumber(player1);
+            if(isGuessed(secretNumber,player1,numberPlayer1)){
                 break;
             }
-            if (isGuessed(secretNumber, player2, insertNumber(player2))) {
+            int numberPlayer2 = inputNumber(player2);
+            if(isGuessed(secretNumber,player2,numberPlayer2)){
                 break;
             }
         }
-        if(player1.getAttempt() == 10) {
-            System.out.println("Player " + player1.getName() + " has run out of attempts");
-        }
-        if(player2.getAttempt() == 10) {
-            System.out.println("Player " + player2.getName() + " has run out of attempts");
-        }
-        getNumbers(player1);
-        getNumbers(player2);
+        printAllNumbers(player1);
+        printAllNumbers(player2);
         player1.clear();
         player2.clear();
+    }
+
+    private boolean checkAttempt(Player player) {
+        if(player.getAttempt() < 10) {
+            return true;
+        } else if(player.getAttempt() == 10) {
+            System.out.println("Player " + player.getName() + " has run out of attempts");
+        }
+        return false;
+    }
+
+    private int inputNumber(Player player) {
+        System.out.println("Player " + player.getName() + " input your number");
+        int number = console.nextInt();
+        player.addNumber(number);
+        return number;
     }
 
     private boolean isGuessed(int secretNumber, Player player, int number) {
@@ -51,17 +63,9 @@ public class GuessNumber {
         return false;
     }
 
-    private int insertNumber(Player player) {
-        System.out.println("Player " + player.getName() + " input your number");
-        int number = console.nextInt();
-        player.addNumbers(number);
-        return number;
-    }
-
-    private void getNumbers(Player player) {
+    private void printAllNumbers(Player player) {
         System.out.println("\nAll numbers, named by player " + player.getName());
-        int[] numbersCopy = Arrays.copyOfRange(player.getNumbers(), 0, player.getAttempt());
-        for (int number: numbersCopy) {
+        for (int number: player.getNumbers()) {
             System.out.print(number + " ");
         }
     }
