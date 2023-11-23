@@ -21,8 +21,7 @@ public class Player {
     }
 
     public int[] getNumbers() {
-        int[] copyNumbers = Arrays.copyOfRange(numbers, 0, attempt);
-        return copyNumbers;
+        return Arrays.copyOf(numbers, attempt);
     }
 
     public void addNumber(int number) {

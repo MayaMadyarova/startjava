@@ -18,12 +18,10 @@ public class GuessNumber {
         System.out.println("The game begins! Each player has 10 attempts.");
         int secretNumber = (int) (1 + Math.random() * 100);
         while(checkAttempt(player1) || checkAttempt(player2)) {
-            int numberPlayer1 = inputNumber(player1);
-            if(isGuessed(secretNumber,player1,numberPlayer1)){
+            if(isGuessed(secretNumber, player1)) {
                 break;
             }
-            int numberPlayer2 = inputNumber(player2);
-            if(isGuessed(secretNumber,player2,numberPlayer2)){
+            if(isGuessed(secretNumber, player2)) {
                 break;
             }
         }
@@ -36,20 +34,13 @@ public class GuessNumber {
     private boolean checkAttempt(Player player) {
         if(player.getAttempt() < 10) {
             return true;
-        } else if(player.getAttempt() == 10) {
-            System.out.println("Player " + player.getName() + " has run out of attempts");
         }
+        System.out.println("Player " + player.getName() + " has run out of attempts");
         return false;
     }
 
-    private int inputNumber(Player player) {
-        System.out.println("Player " + player.getName() + " input your number");
-        int number = console.nextInt();
-        player.addNumber(number);
-        return number;
-    }
-
-    private boolean isGuessed(int secretNumber, Player player, int number) {
+    private boolean isGuessed(int secretNumber, Player player) {
+        int number = inputNumber(player);
         if (number == secretNumber) {
             System.out.println("Player " + player.getName() + " has guessed number " + number + " from " +
                     player.getAttempt() + " attempt!");
@@ -61,6 +52,13 @@ public class GuessNumber {
             System.out.println("Number " + number + " is less than what the computer made up");
         }
         return false;
+    }
+
+    private int inputNumber(Player player) {
+        System.out.println("Player " + player.getName() + " input your number");
+        int number = console.nextInt();
+        player.addNumber(number);
+        return number;
     }
 
     private void printAllNumbers(Player player) {
