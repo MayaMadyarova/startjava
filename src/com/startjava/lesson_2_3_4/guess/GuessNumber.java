@@ -65,7 +65,7 @@ public class GuessNumber {
 
     private void printAllNumbers(Player player) {
         System.out.println("\nAll numbers, named by player " + player.getName());
-        for (int number: player.getNumbers()) {
+        for (int number : player.getNumbers()) {
             System.out.print(number + " ");
         }
     }
