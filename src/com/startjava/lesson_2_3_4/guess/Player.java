@@ -6,6 +6,7 @@ public class Player {
 
     private String name;
     private int attempt;
+    private int numberOfWins;
     private int[] numbers = new int[10];
 
     public Player(String name) {
@@ -20,12 +21,24 @@ public class Player {
         return attempt;
     }
 
+    public int getNumberOfWins() {
+        return numberOfWins;
+    }
+
+    public void addNumberOfWins() {
+        numberOfWins++;
+    }
+
     public int[] getNumbers() {
         return Arrays.copyOf(numbers, attempt);
     }
 
-    public void addNumber(int number) {
-        numbers[attempt++] = number;
+    public void setNumber(int number) {
+        if(number > 0 && number <= 100) {
+            numbers[attempt++] = number;
+        } else {
+            System.out.println("Your number is out of acceptable range. Try again.");
+        }
     }
 
     public void clear() {
