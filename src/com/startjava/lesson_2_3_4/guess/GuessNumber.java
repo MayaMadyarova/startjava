@@ -1,59 +1,62 @@
 package com.startjava.lesson_2_3_4.guess;
 
-import java.sql.DataTruncation;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class GuessNumber {
     Scanner console = new Scanner(System.in);
-    private Player[] players = new Player[3];
+    private Player[] players = new Player[NUMBER_OF_PLAYERS];
+    static final int NUMBER_OF_PLAYERS = 3;
+    static final int ROUNDS = 3;
 
-    public GuessNumber(String name1, String name2, String name3) {
-        players[0] = new Player(name1);
-        players[1] = new Player(name2);
-        players[2] = new Player(name3);
+    public GuessNumber(String[] names) {
+        for(int i = 0; i < NUMBER_OF_PLAYERS; i++) {
+            players[i] = new Player(names[i]);
+        }
     }
 
     public void play() {
         System.out.println("The game begins! Each player has 10 attempts for one round.");
-        orderOfPlay(players);
-        final int ROUND = 3;
-        for(int k = 1; k <= ROUND; k++) {
-            System.out.println("Round " + k + " starts.");
-            int secretNumber = (int) (1 + Math.random() * 100);
-            outer:
-            while (hasAttempt(players[0]) || hasAttempt(players[1]) || hasAttempt(players[2])) {
-                for (int i = 0; i < players.length; i++) {
-                    if (isGuessed(secretNumber, players[i])) {
-                        players[i].addNumberOfWins();
-                        break outer;
-                    }
-                }
-            }
-            for(int i = 0; i < players.length; i++) {
-                printAllNumbers(players[i]);
-                players[i].clear();
-            }
-            System.out.println("\nEnd of " + k + " round.");
+        for(int i = 1; i <= ROUNDS; i++) {
+            System.out.println("Round " + i + " starts.");
+            playRound();
+            System.out.println("\nEnd of " + i + " round.");
         }
         determineWinner(players);
     }
 
-    private Player[] orderOfPlay(Player[] players) {
-        for(int i = players.length - 1; i > 0; i--) {
-            int j = (int) (Math.random() * i);
-            Player temp = players[j];
-            players[j] = players[i];
-            players[i] = temp;
+    public void playRound() {
+        shufflePlayers(players);
+        int secretNumber = (int) (1 + Math.random() * Player.MAX);
+        while (hasAttempt()) {
+            for (int j = 0; j < players.length; j++) {
+                if (isGuessed(secretNumber, players[j])) {
+                    players[j].incrementScore();
+                    for(Player player : players) {
+                        printAllNumbers(player);
+                        player.clear();
+                    }
+                    return;
+                }
+            }
         }
-        return players;
     }
 
-    private boolean hasAttempt(Player player) {
-        if(player.getAttempt() < 10) {
-            return true;
+    private void shufflePlayers(Player[] players) {
+        for(int i = players.length - 1; i > 0; i--) {
+            int randomNumber = (int) (Math.random() * i);
+            Player temp = players[randomNumber];
+            players[randomNumber] = players[i];
+            players[i] = temp;
         }
-        System.out.println("Player " + player.getName() + " has run out of attempts");
+    }
+
+    private boolean hasAttempt() {
+        for (Player player : players) {
+            if (player.getAttempt() < Player.ATTEMPT_MAX) {
+                return true;
+            }
+            System.out.println("Player " + player.getName() + " has run out of attempts");
+        }
         return false;
     }
 
@@ -74,8 +77,10 @@ public class GuessNumber {
         do {
             System.out.println("Player " + player.getName() + " input your number from interval (0, 100]");
             number = console.nextInt();
-            player.setNumber(number);
-        } while(number > 100 || number <= 0);
+            if(!player.setNumber(number)) {
+                System.out.println("Your number is out of acceptable range. Try again.");
+            }
+        } while(number > Player.MAX || number <= Player.MIN);
         return number;
     }
 
@@ -87,10 +92,15 @@ public class GuessNumber {
     }
 
     public static void determineWinner(Player[] players) {
-        int max = Math.max(players[0].getNumberOfWins(), (Math.max(players[1].getNumberOfWins(), players[2].getNumberOfWins())));
-        for (int i = 0; i < players.length - 1; i++) {
-            if (max == players[i].getNumberOfWins()) {
-                System.out.println("Player " + players[i].getName() + " has won! Guessed " + max + " times.");
+        int max = 0;
+        for(Player player : players) {
+            if(player.getScore() > max) {
+                max = player.getScore();
+            }
+        }
+        for (Player player : players) {
+            if (max == player.getScore()) {
+                System.out.println("Player " + player.getName() + " has won! Guessed " + max + " times.");
             }
         }
     }
