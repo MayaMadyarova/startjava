@@ -1,12 +1,18 @@
 package com.startjava.lesson_2_3_4.guess;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class GuessNumber {
-    Scanner console = new Scanner(System.in);
-    private Player[] players = new Player[NUMBER_OF_PLAYERS];
+
     static final int NUMBER_OF_PLAYERS = 3;
     static final int ROUNDS = 3;
+    private Player[] players = new Player[NUMBER_OF_PLAYERS];
+
+    Scanner console = new Scanner(System.in);
 
     public GuessNumber(String[] names) {
         for(int i = 0; i < NUMBER_OF_PLAYERS; i++) {
@@ -15,34 +21,39 @@ public class GuessNumber {
     }
 
     public void play() {
-        System.out.println("The game begins! Each player has 10 attempts for one round.");
+        System.out.println("The game begins! Each player has 10 attempts for one round." +
+                " \n In the game there are 3 rounds.");
         for(int i = 1; i <= ROUNDS; i++) {
             System.out.println("Round " + i + " starts.");
             playRound();
-            System.out.println("\nEnd of " + i + " round.");
+            for(Player player : players) {
+                printAllNumbers(player);
+                player.clear();
+            }
+            if(i != ROUNDS) {
+                System.out.println("\nEnd of " + i + " round. \nFor next round press \"Enter\" ");
+                console.nextLine();
+                console.nextLine();
+            }
         }
-        determineWinner(players);
+        determineWinner();
     }
 
     public void playRound() {
-        shufflePlayers(players);
+        shufflePlayers();
         int secretNumber = (int) (1 + Math.random() * Player.MAX);
         while (hasAttempt()) {
-            for (int j = 0; j < players.length; j++) {
-                if (isGuessed(secretNumber, players[j])) {
-                    players[j].incrementScore();
-                    for(Player player : players) {
-                        printAllNumbers(player);
-                        player.clear();
-                    }
+            for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
+                if (isGuessed(secretNumber, players[i])) {
+                    players[i].incrementScore();
                     return;
                 }
             }
         }
     }
 
-    private void shufflePlayers(Player[] players) {
-        for(int i = players.length - 1; i > 0; i--) {
+    private void shufflePlayers() {
+        for(int i = NUMBER_OF_PLAYERS - 1; i > 0; i--) {
             int randomNumber = (int) (Math.random() * i);
             Player temp = players[randomNumber];
             players[randomNumber] = players[i];
@@ -73,14 +84,15 @@ public class GuessNumber {
     }
 
     private int inputNumber(Player player) {
-        int number = 123;
+        int number = 0;
         do {
             System.out.println("Player " + player.getName() + " input your number from interval (0, 100]");
             number = console.nextInt();
-            if(!player.setNumber(number)) {
-                System.out.println("Your number is out of acceptable range. Try again.");
+            if(player.setNumber(number)) {
+                break;
             }
-        } while(number > Player.MAX || number <= Player.MIN);
+            System.out.println("Your number is out of acceptable range. Try again.");
+        } while(true);
         return number;
     }
 
@@ -91,17 +103,26 @@ public class GuessNumber {
         }
     }
 
-    public static void determineWinner(Player[] players) {
-        int max = 0;
+    public void determineWinner() {
+        int[] wins = new int[ROUNDS + 1];
         for(Player player : players) {
-            if(player.getScore() > max) {
-                max = player.getScore();
+            System.out.println("\nPlayer " + player.getName() + " guessed " + player.getScore() + " times.");
+            for(int i = 0; i <= ROUNDS; i++) {
+                if (player.getScore() == i) {
+                    wins[i]++;
+                }
             }
+            if ((player.getScore() > ROUNDS / 2) || (wins[0] == 2 && wins[1] == 1)) {
+                System.out.println("Player " + player.getName() + " wins!");
+            }
+            player.setScore(0);
         }
-        for (Player player : players) {
-            if (max == player.getScore()) {
-                System.out.println("Player " + player.getName() + " has won! Guessed " + max + " times.");
-            }
+        if(wins[0] == ROUNDS || (wins[1] == 2 && wins[0] == 1)) {
+            System.out.println("Nobody wins.");
+        }
+        if(wins[1] == ROUNDS) {
+            System.out.println("Count is even");
         }
     }
 }
+
