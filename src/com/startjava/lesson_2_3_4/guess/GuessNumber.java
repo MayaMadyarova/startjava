@@ -1,9 +1,5 @@
 package com.startjava.lesson_2_3_4.guess;
 
-import jdk.swing.interop.SwingInterOpUtils;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class GuessNumber {
@@ -15,7 +11,7 @@ public class GuessNumber {
     Scanner console = new Scanner(System.in);
 
     public GuessNumber(String[] names) {
-        for(int i = 0; i < NUMBER_OF_PLAYERS; i++) {
+        for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
             players[i] = new Player(names[i]);
         }
     }
@@ -23,14 +19,14 @@ public class GuessNumber {
     public void play() {
         System.out.println("The game begins! Each player has 10 attempts for one round." +
                 " \n In the game there are 3 rounds.");
-        for(int i = 1; i <= ROUNDS; i++) {
+        for (int i = 1; i <= ROUNDS; i++) {
             System.out.println("Round " + i + " starts.");
             playRound();
-            for(Player player : players) {
+            for (Player player : players) {
                 printAllNumbers(player);
                 player.clear();
             }
-            if(i != ROUNDS) {
+            if (i != ROUNDS) {
                 System.out.println("\nEnd of " + i + " round. \nFor next round press \"Enter\" ");
                 console.nextLine();
                 console.nextLine();
@@ -42,30 +38,33 @@ public class GuessNumber {
     public void playRound() {
         shufflePlayers();
         int secretNumber = (int) (1 + Math.random() * Player.MAX);
-        while (hasAttempt()) {
-            for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
-                if (isGuessed(secretNumber, players[i])) {
-                    players[i].incrementScore();
+        int count = 0;
+        do {
+            for (Player player : players) {
+                if (isGuessed(secretNumber, player)) {
+                    player.incrementScore();
                     return;
                 }
+                hasAttempt(player);
             }
-        }
+            count++;
+        } while (count < Player.ATTEMPT_MAX);
     }
 
+
     private void shufflePlayers() {
-        for(int i = NUMBER_OF_PLAYERS - 1; i > 0; i--) {
-            int randomNumber = (int) (Math.random() * i);
-            Player temp = players[randomNumber];
-            players[randomNumber] = players[i];
+        for (int i = NUMBER_OF_PLAYERS - 1; i > 0; i--) {
+            int position = (int) (Math.random() * i);
+            Player temp = players[position];
+            players[position] = players[i];
             players[i] = temp;
         }
     }
 
-    private boolean hasAttempt() {
-        for (Player player : players) {
-            if (player.getAttempt() < Player.ATTEMPT_MAX) {
-                return true;
-            }
+    private boolean hasAttempt(Player player) {
+        if (player.getAttempt() < Player.ATTEMPT_MAX) {
+            return true;
+        } else {
             System.out.println("Player " + player.getName() + " has run out of attempts");
         }
         return false;
@@ -78,8 +77,8 @@ public class GuessNumber {
                     player.getAttempt() + " attempt!");
             return true;
         }
-        System.out.println((number > secretNumber) ? "Number " + number + " is bigger than what the computer made up" :
-            "Number " + number + " is less than what the computer made up");
+        System.out.println((number > secretNumber) ? "Number " + number + " is bigger than what " +
+                "the computer made up" : "Number " + number + " is less than what the computer made up");
         return false;
     }
 
@@ -88,11 +87,11 @@ public class GuessNumber {
         do {
             System.out.println("Player " + player.getName() + " input your number from interval (0, 100]");
             number = console.nextInt();
-            if(player.setNumber(number)) {
+            if (player.setNumber(number)) {
                 break;
             }
             System.out.println("Your number is out of acceptable range. Try again.");
-        } while(true);
+        } while (true);
         return number;
     }
 
@@ -104,25 +103,35 @@ public class GuessNumber {
     }
 
     public void determineWinner() {
-        int[] wins = new int[ROUNDS + 1];
-        for(Player player : players) {
-            System.out.println("\nPlayer " + player.getName() + " guessed " + player.getScore() + " times.");
-            for(int i = 0; i <= ROUNDS; i++) {
-                if (player.getScore() == i) {
-                    wins[i]++;
+        int count1 = 0;
+        int count0 = 0;
+        int[] wins = new int[NUMBER_OF_PLAYERS];
+        for(int i = 0; i < NUMBER_OF_PLAYERS; i++) {
+            wins[i] = players[i].getScore();
+            System.out.println("\nPlayer " + players[i].getName() + " guessed " +
+                    players[i].getScore() + " times.");
+            if (wins[i] == 1) {
+                count1++;
+                if (count1 == NUMBER_OF_PLAYERS) {
+                    System.out.println("Score is even");
                 }
             }
-            if ((player.getScore() > ROUNDS / 2) || (wins[0] == 2 && wins[1] == 1)) {
-                System.out.println("Player " + player.getName() + " wins!");
+            if (wins[i] == 0) {
+                count0++;
+                if (count0 == NUMBER_OF_PLAYERS) {
+                    System.out.println("Nobody wins");
+                }
             }
-            player.setScore(0);
+            players[i].setScore(0);
         }
-        if(wins[0] == ROUNDS || (wins[1] == 2 && wins[0] == 1)) {
-            System.out.println("Nobody wins.");
-        }
-        if(wins[1] == ROUNDS) {
-            System.out.println("Count is even");
+        for(int i = 0; i < 1; i++) {
+            if(wins[i] > wins[i + 1] && wins[i] > wins[ i + 2]) {
+                System.out.println("Player " + players[i].getName() + " wins!");
+            } else if(wins[i + 2] > wins[i] && wins[i + 2] > wins[i + 1]) {
+                    System.out.println("Player " + players[i + 2].getName() + " wins!");
+            } else if(wins[i + 1] > wins[i] && wins[i + 1] > wins[i + 2]) {
+                    System.out.println("Player " + players[i + 1].getName() + " wins!");
+            }
         }
     }
 }
-

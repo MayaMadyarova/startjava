@@ -28,14 +28,15 @@ public class Player {
         return score;
     }
 
-    public void setScore(int score) { this.score = score; }
-
-    public int[] getNumbers() {
-        return Arrays.copyOf(numbers, attempt);
-    }
+    public void setScore(int score) {
+        this.score = score;}
 
     public void incrementScore() {
         score++;
+    }
+
+    public int[] getNumbers() {
+        return Arrays.copyOf(numbers, attempt);
     }
 
     public boolean setNumber(int number) {
