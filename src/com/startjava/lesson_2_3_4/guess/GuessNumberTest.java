@@ -20,8 +20,8 @@ public class GuessNumberTest {
     }
 
     public static String[] introducePlayers(Scanner console) {
-        String[] names = new String[GuessNumber.NUMBER_OF_PLAYERS];
-        for (int i = 0; i < GuessNumber.NUMBER_OF_PLAYERS; i++) {
+        String[] names = new String[GuessNumber.PLAYERS_LIMIT];
+        for (int i = 0; i < GuessNumber.PLAYERS_LIMIT; i++) {
             System.out.println("Input the name of the first player");
             names[i] = console.nextLine();
         }

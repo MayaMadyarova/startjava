@@ -1,23 +1,21 @@
 package com.startjava.graduation.bookshelf;
 
-import java.util.Date;
-
 public class Book {
     private String author;
     private String title;
     private String yearOfIssue;
     private int lengthOfBookInformation;
+    private static final int BOOK_INFO = 3;
+    private String[] bookInfo;
 
     public Book(String bookInformation) {
-        String[] bookInfo = new String[3];
-        try {
-            bookInfo = bookInformation.split(", ");
-        } catch(RuntimeException e) {
-            System.out.println("wrong format");
+        bookInfo = bookInformation.split(", ");
+        if (bookInfo.length != BOOK_INFO) {
+            throw new RuntimeException("wrong format");
         }
-        this.author = bookInfo[0];
-        this.title = bookInfo[1];
-        this.yearOfIssue = bookInfo[2];
+        author = bookInfo[0];
+        title = bookInfo[1];
+        yearOfIssue = bookInfo[2];
     }
 
     @Override
@@ -25,31 +23,7 @@ public class Book {
         return String.format("%s, %s, %s", author, title, yearOfIssue);
     }
 
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setName(String title) {
-        this.title = title;
-    }
-
-    public String getYearOfIssue() {
-        return yearOfIssue;
-    }
-
-    public void setYearOfIssue(String yearOfIssue) {
-        this.yearOfIssue = yearOfIssue;
-    }
-
+    //это длина строки?//
     public int getLengthOfBookInformation() {
         return lengthOfBookInformation;
     }

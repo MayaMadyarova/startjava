@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 public class GuessNumber {
 
-    static final int NUMBER_OF_PLAYERS = 3;
-    static final int ROUNDS = 3;
-    private Player[] players = new Player[NUMBER_OF_PLAYERS];
+    static final int PLAYERS_LIMIT = 3;
+    private static final int ROUNDS = 3;
+    private Player[] players = new Player[PLAYERS_LIMIT];
 
     Scanner console = new Scanner(System.in);
 
     public GuessNumber(String[] names) {
-        for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
+        for (int i = 0; i < PLAYERS_LIMIT; i++) {
             players[i] = new Player(names[i]);
         }
     }
@@ -35,7 +35,7 @@ public class GuessNumber {
         determineWinner();
     }
 
-    public void playRound() {
+    private void playRound() {
         shufflePlayers();
         int secretNumber = (int) (1 + Math.random() * Player.MAX);
         int count = 0;
@@ -53,7 +53,7 @@ public class GuessNumber {
 
 
     private void shufflePlayers() {
-        for (int i = NUMBER_OF_PLAYERS - 1; i > 0; i--) {
+        for (int i = PLAYERS_LIMIT - 1; i > 0; i--) {
             int position = (int) (Math.random() * i);
             Player temp = players[position];
             players[position] = players[i];
@@ -102,36 +102,41 @@ public class GuessNumber {
         }
     }
 
-    public void determineWinner() {
+    private void determineWinner() {
         int count1 = 0;
         int count0 = 0;
-        int[] wins = new int[NUMBER_OF_PLAYERS];
-        for(int i = 0; i < NUMBER_OF_PLAYERS; i++) {
+        int[] wins = new int[PLAYERS_LIMIT];
+        for(int i = 0; i < PLAYERS_LIMIT; i++) {
             wins[i] = players[i].getScore();
             System.out.println("\nPlayer " + players[i].getName() + " guessed " +
                     players[i].getScore() + " times.");
             if (wins[i] == 1) {
                 count1++;
-                if (count1 == NUMBER_OF_PLAYERS) {
+                if (count1 == PLAYERS_LIMIT) {
                     System.out.println("Score is even");
                 }
             }
             if (wins[i] == 0) {
                 count0++;
-                if (count0 == NUMBER_OF_PLAYERS) {
+                if (count0 == PLAYERS_LIMIT) {
                     System.out.println("Nobody wins");
                 }
             }
             players[i].setScore(0);
         }
-        for(int i = 0; i < 1; i++) {
-            if(wins[i] > wins[i + 1] && wins[i] > wins[ i + 2]) {
-                System.out.println("Player " + players[i].getName() + " wins!");
-            } else if(wins[i + 2] > wins[i] && wins[i + 2] > wins[i + 1]) {
-                    System.out.println("Player " + players[i + 2].getName() + " wins!");
-            } else if(wins[i + 1] > wins[i] && wins[i + 1] > wins[i + 2]) {
-                    System.out.println("Player " + players[i + 1].getName() + " wins!");
-            }
+        int max = wins[1];
+        if(wins[0] > wins[1]) {
+            max = wins[0];
+        }
+        if(wins[2] > max) {
+            max = wins[2];
+        }
+        if(max == wins[0]) {
+            System.out.println("Player " + players[0].getName() + " wins!");
+        } else if(max == wins[1]) {
+            System.out.println("Player " + players[1].getName() + " wins!");
+        } else {
+            System.out.println("Player " + players[2].getName() + " wins!");
         }
     }
 }

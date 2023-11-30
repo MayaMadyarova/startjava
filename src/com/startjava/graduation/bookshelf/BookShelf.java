@@ -2,11 +2,12 @@ package com.startjava.graduation.bookshelf;
 
 public class BookShelf {
     private static int numberOfBooksOnTheShelf = 0;
-    private static String[] bookShelf = new String[10];
+    static final int BOOKSHELF_LIMIT = 10;
+    private static String[] bookShelf = new String[BOOKSHELF_LIMIT];
     private Book book;
 
     public static void Add(Book book) {
-        if(numberOfBooksOnTheShelf == 10) {
+        if(numberOfBooksOnTheShelf == BOOKSHELF_LIMIT) {
             System.out.println("The bookshelf is full. Delete some book.");
         } else {
             bookShelf[numberOfBooksOnTheShelf++] = book.toString();
@@ -31,7 +32,7 @@ public class BookShelf {
             if(book[1].equals(title)) {
                 System.out.println(book[1] + " has been found and deleted");
                 for (int j = i; j < numberOfBooksOnTheShelf; j++) {
-                    bookShelf[j] = bookShelf[j + 1];
+                    bookShelf[j] = bookShelf[i + 1];
                 }
                 numberOfBooksOnTheShelf--;
             }
@@ -43,7 +44,7 @@ public class BookShelf {
     }
 
     public static void ReceiveNumberOfFreeShelves() {
-        System.out.println("Free shelves - " + (10 - numberOfBooksOnTheShelf));
+        System.out.println("Free shelves - " + (BOOKSHELF_LIMIT - numberOfBooksOnTheShelf));
     };
 
     public static void ReceiveAllBooks() {
@@ -59,6 +60,7 @@ public class BookShelf {
         for(int i = 0; i < numberOfBooksOnTheShelf; i++) {
             bookShelf[i] = null;
         }
+        numberOfBooksOnTheShelf = 0;
         System.out.println("The bookshelf is empty");
     }
 }

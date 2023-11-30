@@ -26,10 +26,15 @@ public class BookShelfTest {
                         System.out.println("Enter author, title, year of issue in the format : author, title, year of issue");
                         scanner.nextLine();
                         String bookInformation = scanner.nextLine();
-                        Book book = new Book(bookInformation);
-                        BookShelf.Add(book);
-                        BookShelf.ReceiveAllBooks();
+                        try {
+                            Book book = new Book(bookInformation);
+                            BookShelf.Add(book);
+                            BookShelf.ReceiveAllBooks();
+                        } catch (RuntimeException e) {
+                            System.out.println(e.getMessage());
+                        }
                         break;
+
                     case 2:
                         System.out.println("Enter title");
                         scanner.nextLine();
