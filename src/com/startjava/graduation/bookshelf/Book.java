@@ -3,32 +3,27 @@ package com.startjava.graduation.bookshelf;
 public class Book {
     private String author;
     private String title;
-    private String yearOfIssue;
-    private int lengthOfBookInformation;
-    private static final int BOOK_INFO = 3;
-    private String[] bookInfo;
+    private String year;
+    private int bookLength;
 
-    public Book(String bookInformation) {
-        bookInfo = bookInformation.split(", ");
-        if (bookInfo.length != BOOK_INFO) {
-            throw new RuntimeException("wrong format");
-        }
-        author = bookInfo[0];
-        title = bookInfo[1];
-        yearOfIssue = bookInfo[2];
+    public Book(String author, String title, String year) {
+        this.author = author;
+        this.title = title;
+        this.year = year;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getbookLength() {
+        String bookInfo = toString();
+        return bookInfo.length();
     }
 
     @Override
     public String toString() {
-        return String.format("%s, %s, %s", author, title, yearOfIssue);
+        return String.format("%s, %s, %s", author, title, year);
     }
 
-    //это длина строки?//
-    public int getLengthOfBookInformation() {
-        return lengthOfBookInformation;
-    }
-
-    public void setLengthOfBookInformation(int lengthOfBookInformation) {
-        this.lengthOfBookInformation = lengthOfBookInformation;
-    }
 }

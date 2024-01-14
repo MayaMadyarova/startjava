@@ -1,66 +1,62 @@
 package com.startjava.graduation.bookshelf;
 
-public class BookShelf {
-    private static int numberOfBooksOnTheShelf = 0;
-    static final int BOOKSHELF_LIMIT = 10;
-    private static String[] bookShelf = new String[BOOKSHELF_LIMIT];
-    private Book book;
+import java.util.Arrays;
 
-    public static void Add(Book book) {
-        if(numberOfBooksOnTheShelf == BOOKSHELF_LIMIT) {
+public class BookShelf {
+    private int countBooks = 0;
+    private Book[] bookShelf1 = new Book[10];
+
+    public Book[] getBookShelf1() {
+        return bookShelf1;
+    }
+
+    public int getCountBooks() {
+        return countBooks;
+    }
+
+    public void add(Book book) {
+        if(countBooks == 10) {
             System.out.println("The bookshelf is full. Delete some book.");
         } else {
-            bookShelf[numberOfBooksOnTheShelf++] = book.toString();
+            bookShelf1[countBooks++] = book;
         }
     }
 
-    public static void Find(String title) {
-        for(int i = 0; i < numberOfBooksOnTheShelf; i++) {
-            String[] book = new String[3];
-            book = bookShelf[i].split(", ");
-            if(book[1].equals(title)) {
-                System.out.println(book[1] + " has been found");
-                System.out.println("|" + book[0] + ", " + book[1] + ", " + book[2] + " |");
-                System.out.println("|---------------------------------------|");
+    public void find(String title) {
+        for(int i = 0; i < countBooks; i++) {
+            if(bookShelf1[i].getTitle().equals(title)) {
+                System.out.println(bookShelf1[i] + " has been found");
+            } else {
+                System.out.println("The book is not available on the shelf " + (i + 1));
             }
         }
     }
 
-    public static void Delete(String title) {
-        for(int i = 0; i < numberOfBooksOnTheShelf; i++) {
-            String[] book = bookShelf[i].split(", ");
-            if(book[1].equals(title)) {
-                System.out.println(book[1] + " has been found and deleted");
-                for (int j = i; j < numberOfBooksOnTheShelf; j++) {
-                    bookShelf[j] = bookShelf[i + 1];
-                }
-                numberOfBooksOnTheShelf--;
+    public void delete(String title) {
+        for(int i = 0; i < countBooks; i++) {
+            if(bookShelf1[i].getTitle().equals(title)) {
+                System.out.println(bookShelf1[i] + " has been found and deleted");
+                System.arraycopy(bookShelf1, i + 1, bookShelf1, i, countBooks--);
             }
         }
     }
 
-    public static void ReceiveNumberOfBooks() {
-        System.out.println("In the bookshelf - " + numberOfBooksOnTheShelf + " books.");
+    public void receiveAllBooks() {
+        countBooks();
+        countFreeShelves();
     }
 
-    public static void ReceiveNumberOfFreeShelves() {
-        System.out.println("Free shelves - " + (BOOKSHELF_LIMIT - numberOfBooksOnTheShelf));
-    };
-
-    public static void ReceiveAllBooks() {
-        ReceiveNumberOfBooks();
-        ReceiveNumberOfFreeShelves();
-        for(int i = 0; i < numberOfBooksOnTheShelf; i++) {
-            System.out.println("|" + bookShelf[i] + "|");
-            System.out.println("|---------------------------------------- |");
-        }
+    public void countBooks() {
+        System.out.println("In the bookshelf - " + countBooks + " books.");
     }
 
-    public static void Clean() {
-        for(int i = 0; i < numberOfBooksOnTheShelf; i++) {
-            bookShelf[i] = null;
-        }
-        numberOfBooksOnTheShelf = 0;
+    public void countFreeShelves() {
+        System.out.println("Free shelves - " + (10 - countBooks));
+    }
+
+    public void clear() {
+        Arrays.fill(bookShelf1, null);
+        countBooks = 0;
         System.out.println("The bookshelf is empty");
     }
 }

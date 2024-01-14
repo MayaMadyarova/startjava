@@ -1,73 +1,96 @@
+
 package com.startjava.graduation.bookshelf;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
 
 public class BookShelfTest {
+    static Scanner scanner = new Scanner(System.in);
+    static BookShelf bookShelf = new BookShelf();
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         String answer = "";
         System.out.println("The bookshelf is empty. You can add the first book.\n To continue - press \"Enter\"");
         scanner.nextLine();
-        BookShelf.ReceiveAllBooks();
+        bookShelf.receiveAllBooks();
         System.out.println("\nTo see the menu - press \"enter\"");
         scanner.nextLine();
 
         do {
             if(answer.equals("")) {
-                System.out.print("Menu: \n1.add book; \n2.find book;  \n3.delete book; \n4.receive all books;" +
-                        " \n5. receive number of books in the bookshelf \n6. receive number of free shelves;" +
-                        " \n7. clean the bookshelf");
-                System.out.println("\nPress any number from 1 to 7 to do action with book");
+                displayMenu();
                 int number = scanner.nextInt();
                 switch (number) {
                     case 1:
-                        System.out.println("Enter author, title, year of issue in the format : author, title, year of issue");
-                        scanner.nextLine();
-                        String bookInformation = scanner.nextLine();
-                        try {
-                            Book book = new Book(bookInformation);
-                            BookShelf.Add(book);
-                            BookShelf.ReceiveAllBooks();
-                        } catch (RuntimeException e) {
-                            System.out.println(e.getMessage());
-                        }
+                        Book book = inputData();
+                        bookShelf.add(book);
+                        bookShelf.receiveAllBooks();
+                        displayBookShelf();
                         break;
-
-                    case 2:
+                        case 2:
                         System.out.println("Enter title");
                         scanner.nextLine();
-                        String title = scanner.nextLine();
-                        BookShelf.Find(title);
-                        BookShelf.ReceiveAllBooks();
+                        String bookTitle = scanner.nextLine();
+                        bookShelf.find(bookTitle);
+                        bookShelf.receiveAllBooks();
+                        displayBookShelf();
                         break;
                     case 3:
                         System.out.println("Enter title");
                         scanner.nextLine();
-                        BookShelf.Delete(scanner.nextLine());
-                        BookShelf.ReceiveAllBooks();
+                        bookShelf.delete(scanner.nextLine());
+                        bookShelf.receiveAllBooks();
+                        displayBookShelf();
                         break;
                     case 4:
-                        BookShelf.ReceiveAllBooks();
+                        bookShelf.receiveAllBooks();
                         scanner.nextLine();
+                        displayBookShelf();
                         break;
                     case 5:
-                        BookShelf.ReceiveNumberOfBooks();
+                        bookShelf.countBooks();
                         scanner.nextLine();
+                        displayBookShelf();
                         break;
                     case 6:
-                        BookShelf.ReceiveNumberOfFreeShelves();
+                        bookShelf.countFreeShelves();
                         scanner.nextLine();
+                        displayBookShelf();
                         break;
                     case 7:
-                        BookShelf.Clean();
+                        bookShelf.clear();
                         scanner.nextLine();
+                        displayBookShelf();
                         break;
                 }
             }
             System.out.println("Press \"Enter\" to continue or write \"exit\"");
             answer = scanner.nextLine();
         } while(!answer.equals("exit"));
+    }
+
+    public static Book inputData() {
+        System.out.println("Enter author");
+        scanner.nextLine();
+        String author = scanner.nextLine();
+        System.out.println("Enter title");
+        String title = scanner.nextLine();
+        System.out.println("Enter year of issue");
+        String year = scanner.nextLine();
+        return new Book(author, title, year);
+    }
+
+    public static void displayMenu() {
+        System.out.print("Menu: \n1.add book; \n2.find book;  \n3.delete book; \n4.receive all books;" +
+                " \n5. receive number of books in the bookshelf \n6. receive number of free shelves;" +
+                " \n7. clean the bookshelf");
+        System.out.println("\nPress any number from 1 to 7 to do action with book");
+    }
+
+    public static void displayBookShelf() {
+        Book[] bookShelf1 = bookShelf.getBookShelf1();
+        for(int i = 0; i < bookShelf.getCountBooks(); i++) {
+            System.out.println(bookShelf1[i].toString());
+            System.out.println("|" + "_".repeat(bookShelf1[i].getbookLength()) + "|");
+        }
     }
 }
