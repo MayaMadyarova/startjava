@@ -4,7 +4,7 @@ public class Book {
     private String author;
     private String title;
     private String year;
-    private int bookLength;
+    private int infoLength;
 
     public Book(String author, String title, String year) {
         this.author = author;
@@ -16,14 +16,12 @@ public class Book {
         return title;
     }
 
-    public int getbookLength() {
-        String bookInfo = toString();
-        return bookInfo.length();
+    public int getInfoLength() {
+        return toString().length();
     }
 
     @Override
     public String toString() {
         return String.format("%s, %s, %s", author, title, year);
     }
-
 }
