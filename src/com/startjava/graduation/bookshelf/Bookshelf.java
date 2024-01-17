@@ -3,20 +3,20 @@ package com.startjava.graduation.bookshelf;
 import java.util.Arrays;
 
 public class Bookshelf {
-    static final int MAX = 10;
+    static final int CAPACITY = 3;
     private int countBooks;
-    private Book[] bookshelf = new Book[MAX];
+    private Book[] bookshelf = new Book[CAPACITY];
 
     public int getCountBooks() {
         return countBooks;
     }
 
-    public Book[] getBookshelf() {
+    public Book[] getBooks() {
         return Arrays.copyOf(bookshelf, countBooks);
     }
 
     public int getFreeShelves() {
-        return (MAX - countBooks);
+        return (CAPACITY - countBooks);
     }
 
     public Book add(Book book) {
@@ -25,30 +25,32 @@ public class Bookshelf {
     }
 
     public Book find(String title) {
-        Book book = null;
         for(int i = 0; i < countBooks; i++) {
             if(bookshelf[i].getTitle().equals(title)) {
-                book = bookshelf[i];
+                return bookshelf[i];
             }
         }
-        return book;
+        return null;
     }
 
-    public int delete(String title) {
-        int a = 0;
-        for(int i = 0; i < countBooks; i++) {
-            if(bookshelf[i].getTitle().equals(title)) {
-                System.arraycopy(bookshelf, i + 1, bookshelf, i, countBooks - i - 1);
-                countBooks--;
-                a = 1;
+    public boolean delete(String title) {
+        boolean del = false;
+        if (bookshelf[countBooks - 1].getTitle().equals(title)) {
+            bookshelf[countBooks - 1] = null;
+            countBooks--;
+            del = true;
+        } else {
+            for (int i = 0; i < countBooks - 1; i++) {
+                if (bookshelf[i].getTitle().equals(title)) {
+                    System.arraycopy(bookshelf, i + 1, bookshelf, i, countBooks - i - 1);
+                    bookshelf[countBooks - 1] = null;
+                    countBooks--;
+                    del = true;
+                    break;
+                }
             }
         }
-        return a;
-    }
-
-    public void receiveAllBooks() {
-        System.out.println("Number of books in the bookshelf - " + getCountBooks());
-        System.out.println("Number of free shelves - " + getFreeShelves());
+        return del;
     }
 
     public void clear() {
