@@ -3,7 +3,7 @@ package com.startjava.graduation.bookshelf;
 import java.util.Arrays;
 
 public class Bookshelf {
-    static final int CAPACITY = 3;
+    static final int CAPACITY = 10;
     private int countBooks;
     private Book[] bookshelf = new Book[CAPACITY];
 
@@ -35,19 +35,13 @@ public class Bookshelf {
 
     public boolean delete(String title) {
         boolean del = false;
-        if (bookshelf[countBooks - 1].getTitle().equals(title)) {
-            bookshelf[countBooks - 1] = null;
-            countBooks--;
-            del = true;
-        } else {
-            for (int i = 0; i < countBooks - 1; i++) {
-                if (bookshelf[i].getTitle().equals(title)) {
-                    System.arraycopy(bookshelf, i + 1, bookshelf, i, countBooks - i - 1);
-                    bookshelf[countBooks - 1] = null;
-                    countBooks--;
-                    del = true;
-                    break;
-                }
+        for (int i = 0; i < countBooks; i++) {
+            if (bookshelf[i].getTitle().equals(title)) {
+                System.arraycopy(bookshelf, i + 1, bookshelf, i, countBooks - i - 1);
+                bookshelf[countBooks - 1] = null;
+                countBooks--;
+                del = true;
+                break;
             }
         }
         return del;
@@ -56,6 +50,15 @@ public class Bookshelf {
     public void clear() {
         Arrays.fill(bookshelf, 0, countBooks, null);
         countBooks = 0;
-        System.out.println("The bookshelf is empty");
+    }
+
+    public int getBookshelfLength() {
+        int max = 0;
+        for (Book book : getBooks()) {
+            if (book.getInfoLength() > max) {
+                max = book.getInfoLength();
+            }
+        }
+        return max;
     }
 }
