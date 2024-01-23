@@ -47,18 +47,67 @@ public class BookshelfTest {
     private static void runCommand() {
         switch (item) {
             case 1:
-                bookshelf.save();
+                save();
                 break;
             case 2:
-                bookshelf.find();
+                find();
                 break;
             case 3:
-                bookshelf.delete();
+                delete();
                 break;
             case 4:
                 bookshelf.clear();
                 System.out.println("\nThe bookshelf is empty. You can add the first book.");
                 break;
+        }
+    }
+
+    private static void save() {
+        if(bookshelf.getCountBooks() >= bookshelf.CAPACITY) {
+            System.out.println("The bookshelf is full. Delete some book.");
+            scanner.nextLine();
+        } else {
+            System.out.println("Enter author");
+            String author = scanner.nextLine();
+            String title = enterTitle();
+            System.out.println("Enter year of issue");
+            String year = scanner.nextLine();
+            bookshelf.add(new Book(author, title, year));
+            displayBookshelf();
+        }
+    }
+
+    private static void find() {
+        String title = enterTitle();
+        if(bookshelf.find(title) == null) {
+            System.out.println("Book is not available.");
+        } else {
+            System.out.println(bookshelf.find(title).toString());
+        }
+    }
+
+    private static void delete() {
+        String title = enterTitle();
+        if(bookshelf.isDeleted(title) == false) {
+            System.out.println("Book is not available.");
+        } else {
+            System.out.println("Book has been deleted");
+            displayBookshelf();
+        }
+    }
+
+    private static String enterTitle() {
+        System.out.println("Enter title");
+        return scanner.nextLine();
+    }
+
+    private static void displayBookshelf() {
+        System.out.println("\nNumber of books - " + bookshelf.getCountBooks() + ". Free shelves - " +
+                +bookshelf.getFreeShelves());
+        int max = bookshelf.getBookshelfLength();
+        for (Book book : bookshelf.getBooks()) {
+            System.out.println("|" + book.toString() + " ".repeat(max-book.getInfoLength()) + "|");
+            System.out.println("|" + "-".repeat(max - 1) + "-|");
         }
     }
 }
