@@ -6,15 +6,30 @@ public class BookshelfTest {
     private static Scanner scanner = new Scanner(System.in);
     private static Bookshelf bookshelf = new Bookshelf();
     private static final int EXIT = 5;
-    private static int item = 0;
 
     public static void main(String[] args) {
+        int item = 0;
         do {
+            displayBookshelf();
             displayMenu();
             item = inputItem();
             scanner.nextLine();
-            runCommand();
+            runCommand(item);
         } while(item != EXIT);
+    }
+
+    private static void displayBookshelf() {
+        if(bookshelf.getCountBooks() == 0) {
+            System.out.println("\nThe bookshelf is empty. You can add the first book.");
+        } else {
+            System.out.println("\nNumber of books - " + bookshelf.getCountBooks() +
+                    ". Free shelves - " + bookshelf.getFreeShelves());
+            int length = bookshelf.getBookshelfLength();
+            for (Book book : bookshelf.getBooks()) {
+                System.out.println("|" + book.toString() + " ".repeat(length - book.getInfoLength()) + "|");
+                System.out.println("|" + "-".repeat(length - 1) + "-|");
+            }
+        }
     }
 
    private static void displayMenu() {
@@ -44,7 +59,7 @@ public class BookshelfTest {
         return item;
     }
 
-    private static void runCommand() {
+    private static void runCommand(int item) {
         switch (item) {
             case 1:
                 save();
@@ -57,7 +72,6 @@ public class BookshelfTest {
                 break;
             case 4:
                 bookshelf.clear();
-                System.out.println("\nThe bookshelf is empty. You can add the first book.");
                 break;
         }
     }
@@ -73,26 +87,6 @@ public class BookshelfTest {
             System.out.println("Enter year of issue");
             String year = scanner.nextLine();
             bookshelf.add(new Book(author, title, year));
-            displayBookshelf();
-        }
-    }
-
-    private static void find() {
-        String title = enterTitle();
-        if(bookshelf.find(title) == null) {
-            System.out.println("Book is not available.");
-        } else {
-            System.out.println(bookshelf.find(title).toString());
-        }
-    }
-
-    private static void delete() {
-        String title = enterTitle();
-        if(bookshelf.isDeleted(title) == false) {
-            System.out.println("Book is not available.");
-        } else {
-            System.out.println("Book has been deleted");
-            displayBookshelf();
         }
     }
 
@@ -101,13 +95,21 @@ public class BookshelfTest {
         return scanner.nextLine();
     }
 
-    private static void displayBookshelf() {
-        System.out.println("\nNumber of books - " + bookshelf.getCountBooks() + ". Free shelves - " +
-                +bookshelf.getFreeShelves());
-        int max = bookshelf.getBookshelfLength();
-        for (Book book : bookshelf.getBooks()) {
-            System.out.println("|" + book.toString() + " ".repeat(max-book.getInfoLength()) + "|");
-            System.out.println("|" + "-".repeat(max - 1) + "-|");
+    private static void find() {
+        String title = enterTitle();
+        if(bookshelf.find(title) == null) {
+            System.out.println("Book is not available.");
+        } else {
+            System.out.println(bookshelf.find(title));
+        }
+    }
+
+    private static void delete() {
+        String title = enterTitle();
+        if(!bookshelf.delete(title)) {
+            System.out.println("Book is not available.");
+        } else {
+            System.out.println("Book has been deleted");
         }
     }
 }

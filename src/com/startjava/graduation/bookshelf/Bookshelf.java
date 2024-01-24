@@ -17,12 +17,12 @@ public class Bookshelf {
         return Arrays.copyOf(bookshelf, countBooks);
     }
 
-    public int getFreeShelves() {
-        return (CAPACITY - countBooks);
-    }
-
     public int getBookshelfLength() {
         return bookshelfLength;
+    }
+
+    public int getFreeShelves() {
+        return (CAPACITY - countBooks);
     }
 
     public void add(Book book) {
@@ -30,16 +30,6 @@ public class Bookshelf {
         if (book.getInfoLength() > bookshelfLength) {
             bookshelfLength = book.getInfoLength();
         }
-    }
-
-    public int updateBookshelfLength() {
-        bookshelfLength = 0;
-        for (Book book : getBooks()) {
-            if (book.getInfoLength() > bookshelfLength) {
-                bookshelfLength = book.getInfoLength();
-            }
-        }
-        return bookshelfLength;
     }
 
     public Book find(String title) {
@@ -51,9 +41,9 @@ public class Bookshelf {
         return null;
     }
 
-    public boolean isDeleted(String title) {
+    public boolean delete(String title) {
         for (int i = 0; i < countBooks; i++) {
-            if (bookshelf[i].getTitle().equals(title)){
+            if (bookshelf[i].getTitle().equals(title)) {
                 Book copyBook = bookshelf[i];
                 System.arraycopy(bookshelf, i + 1, bookshelf, i, countBooks - i - 1);
                 bookshelf[countBooks - 1] = null;
@@ -65,6 +55,16 @@ public class Bookshelf {
             }
         }
         return false;
+    }
+
+    private int updateBookshelfLength() {
+        bookshelfLength = 0;
+        for (Book book : getBooks()) {
+            if (book.getInfoLength() > bookshelfLength) {
+                bookshelfLength = book.getInfoLength();
+            }
+        }
+        return bookshelfLength;
     }
 
     public void clear() {
