@@ -1,5 +1,3 @@
-
-
 INSERT INTO jaegers (model_name, mark, height, weight, status, origin, launch, kaiju_kill)
    VALUES 
         ('Cherno Alpha', 1, 85.34, 2.412, 'Destroyed', 'Russia', '2015.01.01', 7),
