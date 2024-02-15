@@ -90,11 +90,6 @@ public class BookshelfTest {
         }
     }
 
-    private static String enterTitle() {
-        System.out.println("Enter title");
-        return scanner.nextLine();
-    }
-
     private static void find() {
         String title = enterTitle();
         if(bookshelf.find(title) == null) {
@@ -111,5 +106,10 @@ public class BookshelfTest {
         } else {
             System.out.println("Book has been deleted");
         }
+    }
+
+    private static String enterTitle() {
+        System.out.println("Enter title");
+        return scanner.nextLine();
     }
 }

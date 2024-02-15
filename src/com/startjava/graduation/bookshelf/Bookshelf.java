@@ -57,14 +57,13 @@ public class Bookshelf {
         return false;
     }
 
-    private int updateBookshelfLength() {
+    private void updateBookshelfLength() {
         bookshelfLength = 0;
         for (Book book : getBooks()) {
             if (book.getInfoLength() > bookshelfLength) {
                 bookshelfLength = book.getInfoLength();
             }
         }
-        return bookshelfLength;
     }
 
     public void clear() {
